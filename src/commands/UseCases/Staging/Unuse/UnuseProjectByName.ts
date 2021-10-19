@@ -1,9 +1,9 @@
-import { ProjectEmbed } from "../../../Entities/ProjectEmbed";
+import { ProjectEmbed } from "../../../entities/ProjectEmbed";
 import {
   ProjectEmptyError,
   ProjectNotFoundError,
-} from "../../../HandleException/ProjectException";
-import { ProjectRepository } from "../../../Repository/ProjectRepository";
+} from "../../../handleException/ProjectException";
+import { ProjectRepository } from "../../../repositories/ProjectRepository";
 
 export class UnuseProjectByName {
   constructor(private projectRepository = new ProjectRepository()) {}

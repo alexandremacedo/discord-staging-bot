@@ -1,31 +1,32 @@
 require("dotenv").config();
 
 import { Client, Intents, Message, MessageEmbed } from "discord.js";
-import { ListProjectByName } from "./commands/UseCases/Staging/Status/ListProjectByName";
-import { ListAllProjects } from "./commands/UseCases/Staging/Status/ListAllProjects";
-import { UseProjectByName } from "./commands/UseCases/Staging/Use/UseProjectByName";
-import { UnuseProjectByName } from "./commands/UseCases/Staging/Unuse/UnuseProjectByName";
-import { UseMultipleProjectsByNames } from "./commands/UseCases/Staging/Use/UseMultipleProjectsByNames";
-import { UnuseMultipleProjectsByNames } from "./commands/UseCases/Staging/Unuse/UnuseMultipleProjectsByNames";
-import { CommandsEmbed } from "./commands/Entities/HelpEmbed";
+import { ListProjectByName } from "./commands/useCases/Staging/Status/ListProjectByName";
+import { ListAllProjects } from "./commands/useCases/Staging/Status/ListAllProjects";
+import { UseProjectByName } from "./commands/useCases/Staging/Use/UseProjectByName";
+import { UnuseProjectByName } from "./commands/useCases/Staging/Unuse/UnuseProjectByName";
+import { UseMultipleProjectsByNames } from "./commands/useCases/Staging/Use/UseMultipleProjectsByNames";
+import { UnuseMultipleProjectsByNames } from "./commands/useCases/Staging/Unuse/UnuseMultipleProjectsByNames";
+import { CommandsEmbed } from "./commands/entities/HelpEmbed";
+import { Help } from "./commands/useCases/Staging/Help/Help";
 
-const lurdinha = new Client({
+const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
 
-const lurdinha_prefix: string = ".";
+const client_prefix: string = ".";
 
-lurdinha.on("ready", () => {
-  console.log(`${lurdinha.user.username} tá fazendo um cafezinho! ☕`);
+client.on("ready", () => {
+  console.log(`${client.user.username} started 🛸`);
 });
 
-lurdinha.on("messageCreate", async (message: Message) => {
+client.on("messageCreate", async (message: Message) => {
   if (message.author.bot) return;
 
-  if (message.content.startsWith(lurdinha_prefix)) {
-    const [lurdinha_command, ...args] = message.content
+  if (message.content.startsWith(client_prefix)) {
+    const [client_command, ...args] = message.content
       .trim()
-      .substring(lurdinha_prefix.length)
+      .substring(client_prefix.length)
       .split(/\s+/);
 
     if (!args[0]) {
@@ -34,7 +35,7 @@ lurdinha.on("messageCreate", async (message: Message) => {
       );
     }
 
-    if (lurdinha_command === "staging") {
+    if (client_command === "staging") {
       if (args[0] === "status" && args.length === 2) {
         const projectEmbed: any = await new ListProjectByName().execute({
           projectName: args[1],
@@ -119,17 +120,17 @@ lurdinha.on("messageCreate", async (message: Message) => {
           message.channel.send(error.message);
         }
       } else if (args[0] === "help") {
+        const helpEmbed: any = await new Help().execute({
+          author: message.author,
+          command: "help",
+        });
+
         message.channel.send({
-          embeds: [
-            new CommandsEmbed().buildCommandsEmbed({
-              author: message.author,
-              command: "help",
-            }),
-          ],
+          embeds: [helpEmbed],
         });
       }
     }
   }
 });
 
-lurdinha.login(process.env.DISCORD_BOT_TOKEN);
+client.login(process.env.DISCORD_BOT_TOKEN);

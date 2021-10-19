@@ -1,5 +1,5 @@
-import { ProjectEmbed } from "../../../Entities/ProjectEmbed";
-import { ProjectRepository } from "../../../Repository/ProjectRepository";
+import { ProjectEmbed } from "../../../entities/ProjectEmbed";
+import { ProjectRepository } from "../../../repositories/ProjectRepository";
 
 export class ListProjectByName {
   constructor(private projectRepository = new ProjectRepository()) {}
