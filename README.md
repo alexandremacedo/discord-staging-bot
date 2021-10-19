@@ -78,8 +78,8 @@ status                       | \src\useCases\Staging\Status      | Displays the 
 status {project}             | \src\useCases\Staging\Status      | Displays the status of the desired project | .staging status project
 use {project}                | \src\useCases\Staging\Use         | Indicates the use of the desired project   | .staging use project
 use {project1} {projectN}    | \src\useCases\Staging\Use         | Indicates the use of multiple projects     | .staging use project1 projectN
-use {project}                | \src\useCases\Staging\Unuse       | Unuse the desired project                  | .staging unuse project
-use {project1} {projectN}    | \src\useCases\Staging\Unuse       | Unuse multiple projects                    | .staging unuse project1 projectN
+unuse {project}                | \src\useCases\Staging\Unuse       | Unuse the desired project                  | .staging unuse project
+unuse {project1} {projectN}    | \src\useCases\Staging\Unuse       | Unuse multiple projects                    | .staging unuse project1 projectN
 
 # License
 The discord-staging-bot is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
