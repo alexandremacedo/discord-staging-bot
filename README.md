@@ -64,7 +64,7 @@ $ yarn
 $ yarn dev
 
 # Bot is up
-# You should create a bot in discord for developers
+# You should create a bot in discord for developers - (https://discord.com/developers/applications)
 # Put the discord bot token on ENV file.
 ```
 
